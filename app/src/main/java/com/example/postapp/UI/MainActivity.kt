@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(baseContext,error,Toast.LENGTH_LONG).show()
         })
         rvPosts.layoutManager = LinearLayoutManager(baseContext)
-        val namesAdapter = NamesRecyclerViewAdapter(listOf("User id","id","title","body"))
-        rvPosts.adapter = namesAdapter
+        val postAdapter = NamesRecyclerViewAdapter(listOf("User id","id","title","body"))
+        rvPosts.adapter = postAdapter
     }
 }
