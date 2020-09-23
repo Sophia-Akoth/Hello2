@@ -21,16 +21,24 @@ class MainActivity : AppCompatActivity() {
         postsViewModelFactory=PostsViewModelFactory(postRepository)
         postViewModel=
             ViewModelProvider(this,postsViewModelFactory).get(PostViewModel::class.java)
-        postViewModel.getPosts()
+        postViewModel.getDbPosts()
 
         postsViewModel.postsLiveData.observe(this,{postsList->
+            if (posts.isEmpty()){
+                postsViewModel.getApiPosts()
+            }
+            else{
+                rvPosts.layoutManager = LinearLayoutManager(baseContext)
+                val postAdapter = NamesRecyclerViewAdapter(posts)
+                rvPosts.adapter = postAdapter
+
+            }
+
             Toast.makeText(baseContext,"${postsList.size} posts fetched",Toast.LENGTH_LONG.show())
         })
         postsViewModel.postsFailedLiveData.observe(this,{error->
             Toast.makeText(baseContext,error,Toast.LENGTH_LONG).show()
         })
-        rvPosts.layoutManager = LinearLayoutManager(baseContext)
-        val postAdapter = NamesRecyclerViewAdapter(listOf("User id","id","title","body"))
-        rvPosts.adapter = postAdapter
+
     }
 }

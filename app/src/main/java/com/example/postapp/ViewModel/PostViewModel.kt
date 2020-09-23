@@ -6,15 +6,16 @@ import com.example.postapp.Models.Post
 class PostViewModel (val postRepository:PostsRepository):ViewModel(){
     var postsLiveData=MutableLiveData<Post>()
     var postsFailedLiveData= MutableLiveData<String>()
-    fun getPosts(){
+    fun getApiPosts(){
         viewModelScope.launch{
             val response=postsRepository.getPosts()
-            if(response.isSuccesful){
-                postsLiveData.postValue(response.body())
+            if(!response.isSuccesful){
+                postsLiveData.postValue(response.errorBody()?.string())
             }
-           else {
-                postsFailedLiveData.postValue(response.errorBody()?.string())
-            }
+
         }
+    }
+    fun getDbPosts(){
+        postsLiveData = postsRepository.getDbPosts()
     }
 }
