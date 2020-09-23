@@ -1,6 +1,8 @@
-package com.example.postapp.UI
+package com.example.postapp
 
-class PostsRecyclerViewAdapter (val postList: List<String>){
+import com.example.postapp.UI.PostItemOnclickListener
+
+class CommentsAdapter(val postList: List<String>) {
     RecyclerView.Adapter<PostsRecyclerViewAdapter.NamesViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NamesViewHolder {
             var itemView = LayoutInflater.from(parent.context)
@@ -13,11 +15,12 @@ class PostsRecyclerViewAdapter (val postList: List<String>){
         override fun onBindViewHolder(holder: NamesViewHolder, position: Int) {
             holder.rowView.tvPosts.Title = postList[position]
             holder.rowView.tvPosts.Body= postList[position]
-            holder.rowView.tvPosts.UserId = postList[position]
+            holder.rowView.tvPosts.comments = postList[position]
 
             PostItemOnclickListener.onItemClick(post)
 
         }
         class NamesViewHolder(val rowView: View) : RecyclerView.ViewHolder(rowView)
     }
+}
 }
