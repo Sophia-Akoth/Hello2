@@ -8,6 +8,7 @@ object ApiClient {
     var client=OkHttpClient.Builder().build()
     var retrofit=Retrofit.Builder()
         .baseUrl("https://jsonplaceholder.typicode.com/")
+        .baseUrl("https://jsonplaceholder.typicode.com/todos")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
